@@ -98,7 +98,9 @@ def webhook_handler():
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         abort(400)
-
+    line_bot_api.push_message(
+        userid, TextSendMessage(text="TTT")
+    )
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
         if not isinstance(event, MessageEvent):

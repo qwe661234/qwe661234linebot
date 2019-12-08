@@ -1,5 +1,4 @@
 from transitions.extensions import GraphMachine
-
 from utils import send_text_message, send_image_message
 
 class TocMachine(GraphMachine):
@@ -20,9 +19,9 @@ class TocMachine(GraphMachine):
 
     def on_enter_state1(self, event):
         print("I'm entering state1")
-
+        txt="TTT"
         reply_token = event.reply_token
-        send_text_message(reply_token, "test")
+        send_text_message(reply_token, txt)
         self.go_back()
 
     def on_exit_state1(self):
