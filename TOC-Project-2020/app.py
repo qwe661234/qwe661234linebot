@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import *
 
 from fsm import TocMachine
 from utils import send_text_message
@@ -14,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "state1", "state2", "state3"],
     transitions=[
         {
             "trigger": "advance",
@@ -28,7 +29,13 @@ machine = TocMachine(
             "dest": "state2",
             "conditions": "is_going_to_state2",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "user",
+            "dest": "state3",
+            "conditions": "is_going_to_state3",
+        },
+        {"trigger": "go_back", "source": ["state1", "state2", "state3"], "dest": "user"},
     ],
     initial="user",
     auto_transitions=False,
@@ -50,7 +57,7 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
-
+userid = "Ud7391557a954ec266c38162045be8828"
 
 @app.route("/callback", methods=["POST"])
 def callback():
@@ -116,6 +123,5 @@ def show_fsm():
 
 
 if __name__ == "__main__":
-    # port = os.environ.get("PORT", 8000)
-    port = os.environ['PORT']
+    port = os.environ.get("PORT", 8000)
     app.run(host="0.0.0.0", port=port, debug=True)
