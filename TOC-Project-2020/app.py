@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request, abort, send_file
 from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 from linebot.models import *
 
 from fsm import TocMachine
@@ -17,6 +17,12 @@ load_dotenv()
 machine = TocMachine(
     states=["user", "state1", "state2", "state3"],
     transitions=[
+        {
+            "trigger": "advance",
+            "source": "user",
+            "dest": "eat",
+            "conditions": "is_going_to_eat",
+        },
         {
             "trigger": "advance",
             "source": "user",
@@ -98,9 +104,9 @@ def webhook_handler():
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         abort(400)
-    line_bot_api.push_message(
-        userid, TextSendMessage(text="TTT")
-    )
+    # line_bot_api.push_message(
+    #     userid, ImageSendMessage(original_content_url='https://qwe661234linebot.herokuapp.com/show-fsm', preview_image_url='https://qwe661234linebot.herokuapp.com/show-fsm')
+    # )
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
         if not isinstance(event, MessageEvent):
