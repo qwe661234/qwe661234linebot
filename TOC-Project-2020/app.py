@@ -15,25 +15,67 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "eat", "state1", "state2", "state3"],
+    states=["user", "eat", "north", "middle", "south", "state3", "tainan", "kaohsiung", "taichung", "changhua", "taipei", "taoyuan"],
     transitions=[
         {
             "trigger": "advance",
-            "source": "user",
+            "source": ["user", "south", "middle", "north"],
             "dest": "eat",
-            "conditions": "is_going_to_eat",
+            "conditions": "is_going_to_eat", 
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "source": "eat",
+            "dest": "north",
+            "conditions": "is_going_to_north",
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "north",
+            "dest": "taipei",
+            "conditions": "is_going_to_taipei",
+        },
+        {
+            "trigger": "advance",
+            "source": "north",
+            "dest": "taoyuan",
+            "conditions": "is_going_to_taoyuan",
+        },
+        {
+            "trigger": "advance",
+            "source": "eat",
+            "dest": "middle",
+            "conditions": "is_going_to_middle",
+        },
+        {
+            "trigger": "advance",
+            "source": "middle",
+            "dest": "taichung",
+            "conditions": "is_going_to_taichung",
+        },
+        {
+            "trigger": "advance",
+            "source": "middle",
+            "dest": "changhua",
+            "conditions": "is_going_to_changhua",
+        },
+        {
+            "trigger": "advance",
+            "source": "eat",
+            "dest": "south",
+            "conditions": "is_going_to_south",
+        },
+        {
+            "trigger": "advance",
+            "source": "south",
+            "dest": "tainan",
+            "conditions": "is_going_to_tainan",
+        },
+        {
+            "trigger": "advance",
+            "source": "south",
+            "dest": "kaohsiung",
+            "conditions": "is_going_to_kaohsiung",
         },
         {
             "trigger": "advance",
@@ -41,7 +83,7 @@ machine = TocMachine(
             "dest": "state3",
             "conditions": "is_going_to_state3",
         },
-        {"trigger": "go_back", "source": ["state1", "state2", "state3"], "dest": "user"},
+        {"trigger": "go_back", "source": ["tainan", "taipei", "kaohsiung", "taoyuan", "taichung", "changhua", "state3"], "dest": "user"},
     ],
     initial="user",
     auto_transitions=False,

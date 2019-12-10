@@ -1,11 +1,14 @@
 import os
 import requests
+import re
+
 from linebot import LineBotApi, WebhookParser
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
+from linebot.models import *
+# from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, 
 from bs4 import BeautifulSoup
 
-channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 
+channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 
 def send_text_message(reply_token, text):
     line_bot_api = LineBotApi(channel_access_token)
@@ -19,50 +22,93 @@ def send_image_message(reply_token, url):
 
     return "OK"
 
-def send_btn_message(reply_token, txt):
+def send_btn_message(reply_token, txt1, txt2, txt3):
     line_bot_api = LineBotApi(channel_access_token)
-    message = {
-        "type": "template",
-        "altText": "在不支援顯示樣板的地方顯示的文字",
-        "template": {
-            "type": "buttons",
-            "text": "eat",
-            "actions": [
-            {
-                "type": "message",
-                "label": "eat",
-                "text": "eee"
-            }
+    message = TemplateSendMessage(
+        alt_text='Buttons Template',
+        template=ButtonsTemplate(
+            title='吃吃',
+            text='choose',
+            # thumbnail_image_url='顯示在開頭的大圖片網址',
+            actions=[
+                MessageTemplateAction(
+                    label=txt1,
+                    text=txt1
+                ),
+                MessageTemplateAction(
+                    label=txt2,
+                    text=txt2                                                                                                                                                                                                                                
+                ),
+                MessageTemplateAction(
+                    label=txt3,
+                    text=txt3
+                ),
             ]
-        }
-    }
+        )
+    )
     line_bot_api.reply_message(reply_token, message)
 
     return "OK"
 
-def crawl(arg):
+def send_carousel_message(reply_token, txt1, txt2):
+    line_bot_api = LineBotApi(channel_access_token)
+    message = TemplateSendMessage(
+        alt_text="'Carousel template'",
+        template=CarouselTemplate(
+        columns=[
+            CarouselColumn(
+                # thumbnail_image_url='顯示在開頭的大圖片網址',
+                title="在" + txt1 + "吃吃",
+                text='選個',
+                actions=[
+                    MessageTemplateAction(
+                        label='PTT美食',
+                        text= txt1 + "批踢踢美食"
+                    ),
+                    MessageTemplateAction(
+                        label='別的地方好了',
+                        text='別的地方好了'
+                    )
+                ]
+            ),
+            CarouselColumn(
+                # thumbnail_image_url='顯示在開頭的大圖片網址',
+                title="在" + txt2 + "吃吃",
+                text='選個',
+                actions=[
+                    MessageTemplateAction(
+                        label='PTT美食',
+                        text= txt2 + "批踢踢美食"
+                    ),
+                    MessageTemplateAction(
+                        label='別的地方好了',
+                        text='別的地方好了'
+                    )
+                ]
+            )
+        ]
+    )
+    )
+    line_bot_api.reply_message(reply_token, message)   
+
+    return "OK"
+
+def crawl(page, arg):
     txt = ""
-    if arg == "台北":
-        keyword = "台北"
-    elif arg == "高雄":
-        keyword = "高雄"
     url = "https://www.ptt.cc/bbs/Food/index.html"
-    for i in range(10):
+    for i in range(page):
         r = requests.get(url)
         soup = BeautifulSoup(r.text,"html.parser")
         sel = soup.select("div.title a")
         u = soup.select("div.btn-group.btn-group-paging a")
         url = "https://www.ptt.cc"+ u[1]["href"]   
         for s in sel:
-            if s.text.find(keyword) >= 0:
+            if s.text.find(arg) >= 0:
                 title = s.text
                 link = "https://www.ptt.cc" + s["href"]
                 txt += '{}\n{}\n'.format(title, link)
         
     return txt
-
-a = crawl("台北")
-print(a)
 
 """
 def send_image_url(id, img_url):
