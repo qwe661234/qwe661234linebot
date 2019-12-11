@@ -78,82 +78,66 @@ The initial state is set to `user`.
 
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
 
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
+* state:user
 
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
+	* Input: "吃吃"
+	  * state: eat
+	  * title: "吃吃 choose"
+	  * Reply: 三個按鈕:
+	  	1. 北部 
+	  	2. 中部 
+	 	3. 南部
 
-## Deploy
-Setting to deploy webhooks on Heroku.
+		* Input: 選擇按鈕 "北部"
+		  * state: north
+		  * Reply: 兩個圖文選單  
+		  	* 選單1 
+				   title: "在台北吃吃 選個"\
+				   	兩個按鈕: 
+					1. PTT美食
+					2. 別的地方好了
+			* 選單2
+				   title: "在桃園吃吃 選個"\
+				   	兩個按鈕: 
+					1. PTT美食
+					2. 別的地方好了
+		
 
-### Heroku CLI installation
+		* Input: 選擇按鈕 "中部"
+		  * state: middle
+		  * Reply: 兩個圖文選單  
+		  	* 選單1 
+				   title: "在台中吃吃 選個"\
+				   	兩個按鈕: 
+					1. PTT美食
+					2. 別的地方好了
+			* 選單2
+				title: "在彰化吃吃 選個"\
+				兩個按鈕: 
+				1. PTT美食
+				2. 別的地方好了
 
-* [macOS, Windows](https://devcenter.heroku.com/articles/heroku-cli)
+		* Input: 選擇按鈕 "南部"
+		  * state: south
+		  * Reply: 兩個圖文選單  
+			* 選單1 
+				title: "在台南吃吃 選個"\
+				兩個按鈕: 
+				1. PTT美食
+				2. 別的地方好了
+			* 選單2
+				title: "在高雄吃吃 選個"\
+				兩個按鈕: 
+				1. PTT美食
+				2. 別的地方好了
 
-or you can use Homebrew (MAC)
-```sh
-brew tap heroku/brew && brew install heroku
-```
+		* Input: 選擇按鈕 "PTT美食"
+			* state: tainan, kaohsiung, taichung, changhua, taipei, taoyuan
+			* Reply: 台南, 高雄, 台中, 彰化, 台北, 桃園 的批踢踢美食資訊
+		
+		* Input: 選擇按鈕 "別的地方好了"
+			* state: eat
+			* Reply: 回到eat選單
+			
 
-or you can use Snap (Ubuntu 16+)
-```sh
-sudo snap install --classic heroku
-```
-
-### Connect to Heroku
-
-1. Register Heroku: https://signup.heroku.com
-
-2. Create Heroku project from website
-
-3. CLI Login
-
-	`heroku login`
-
-### Upload project to Heroku
-
-1. Add local project to Heroku project
-
-	heroku git:remote -a {HEROKU_APP_NAME}
-
-2. Upload project
-
-	```
-	git add .
-	git commit -m "Add code"
-	git push -f heroku master
-	```
-
-3. Set Environment - Line Messaging API Secret Keys
-
-	```
-	heroku config:set LINE_CHANNEL_SECRET=your_line_channel_secret
-	heroku config:set LINE_CHANNEL_ACCESS_TOKEN=your_line_channel_access_token
-	```
-
-4. Your Project is now running on Heroku!
-
-	url: `{HEROKU_APP_NAME}.herokuapp.com/callback`
-
-	debug command: `heroku logs --tail --app {HEROKU_APP_NAME}`
-
-5. If fail with `pygraphviz` install errors
-
-	run commands below can solve the problems
-	```
-	heroku buildpacks:set heroku/python
-	heroku buildpacks:add --index 1 heroku-community/apt
-	```
-
-	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
-
-## Reference
-[Pipenv](https://medium.com/@chihsuan/pipenv-更簡單-更快速的-python-套件管理工具-135a47e504f4) ❤️ [@chihsuan](https://github.com/chihsuan)
-
-[TOC-Project-2019](https://github.com/winonecheng/TOC-Project-2019) ❤️ [@winonecheng](https://github.com/winonecheng)
-
-Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
-
-[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
+			
