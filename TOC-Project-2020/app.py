@@ -146,9 +146,9 @@ def webhook_handler():
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         abort(400)
-    # line_bot_api.push_message(
-    #     userid, ImageSendMessage(original_content_url='https://qwe661234linebot.herokuapp.com/show-fsm', preview_image_url='https://qwe661234linebot.herokuapp.com/show-fsm')
-    # )
+    line_bot_api.push_message(
+        userid, ImageSendMessage(original_content_url='https://qwe661234linebot.herokuapp.com/show-fsm', preview_image_url='https://qwe661234linebot.herokuapp.com/show-fsm')
+    )
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
         if not isinstance(event, MessageEvent):

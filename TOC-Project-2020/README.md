@@ -23,6 +23,9 @@ More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ]
 ## Finite State Machine
 ![fsm](./img/show-fsm.png)
 
+## QR CODE
+![QR CODE](./img/299oriwz.png)
+
 ## Usage
 ![example](./img/S__9396229.jpg)
 ![example](./img/S__9396228.jpg)

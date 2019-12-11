@@ -63,7 +63,7 @@ class TocMachine(GraphMachine):
         send_carousel_message(reply_token, "台北", "桃園")
     
     def on_enter_middle(self, event):
-        print("I'm entering north")
+        print("I'm entering middle")
         reply_token = event.reply_token
         send_carousel_message(reply_token, "台中", "彰化")
 
@@ -74,7 +74,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_tainan(self, event):
         print("I'm entering tainan")
-        msg = crawl(10, "台南")
+        msg = crawl(1, "台南")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
 
@@ -83,7 +83,7 @@ class TocMachine(GraphMachine):
     
     def on_enter_kaohsiung(self, event):
         print("I'm entering kaohsiung")
-        msg = crawl(10, "高雄")
+        msg = crawl(1, "高雄")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
         self.go_back()
@@ -93,7 +93,7 @@ class TocMachine(GraphMachine):
     
     def on_enter_taichung(self, event):
         print("I'm entering taichung")
-        msg = crawl(10, "台中")
+        msg = crawl(1, "台中")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
         self.go_back()
@@ -103,7 +103,7 @@ class TocMachine(GraphMachine):
     
     def on_enter_changhua(self, event):
         print("I'm entering changhua")
-        msg = crawl(10, "彰化")
+        msg = crawl(1, "彰化")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
         self.go_back()
@@ -113,7 +113,7 @@ class TocMachine(GraphMachine):
     
     def on_enter_taipei(self, event):
         print("I'm entering taipei")
-        msg = crawl(3, "台北")
+        msg = crawl(1, "台北")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
         self.go_back()
@@ -123,7 +123,7 @@ class TocMachine(GraphMachine):
     
     def on_enter_taoyuan(self, event):
         print("I'm entering taoyuan")
-        msg = crawl(10, "桃園")
+        msg = crawl(1, "桃園")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
         self.go_back()

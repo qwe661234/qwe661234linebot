@@ -1,6 +1,5 @@
 import os
 import requests
-import re
 
 from linebot import LineBotApi, WebhookParser
 from linebot.models import *
@@ -29,7 +28,7 @@ def send_btn_message(reply_token, txt1, txt2, txt3):
         template=ButtonsTemplate(
             title='吃吃',
             text='choose',
-            # thumbnail_image_url='顯示在開頭的大圖片網址',
+            thumbnail_image_url='https://raw.githubusercontent.com/qwe661234/qwe661234linebot/master/TOC-Project-2020/img/cxtg.png',
             actions=[
                 MessageTemplateAction(
                     label=txt1,
@@ -53,11 +52,11 @@ def send_btn_message(reply_token, txt1, txt2, txt3):
 def send_carousel_message(reply_token, txt1, txt2):
     line_bot_api = LineBotApi(channel_access_token)
     message = TemplateSendMessage(
-        alt_text="'Carousel template'",
+        alt_text="Carousel template",
         template=CarouselTemplate(
         columns=[
             CarouselColumn(
-                # thumbnail_image_url='顯示在開頭的大圖片網址',
+                thumbnail_image_url='https://raw.githubusercontent.com/qwe661234/qwe661234linebot/master/TOC-Project-2020/img/sfg%E5%90%8D.png',
                 title="在" + txt1 + "吃吃",
                 text='選個',
                 actions=[
@@ -72,7 +71,7 @@ def send_carousel_message(reply_token, txt1, txt2):
                 ]
             ),
             CarouselColumn(
-                # thumbnail_image_url='顯示在開頭的大圖片網址',
+                thumbnail_image_url='https://raw.githubusercontent.com/qwe661234/qwe661234linebot/master/TOC-Project-2020/img/sfg%E5%90%8D.png',
                 title="在" + txt2 + "吃吃",
                 text='選個',
                 actions=[
@@ -96,7 +95,7 @@ def send_carousel_message(reply_token, txt1, txt2):
 def crawl(page, arg):
     txt = ""
     url = "https://www.ptt.cc/bbs/Food/index.html"
-    for i in range(page):
+    for i in range(page, page+5):
         r = requests.get(url)
         soup = BeautifulSoup(r.text,"html.parser")
         sel = soup.select("div.title a")
@@ -109,6 +108,7 @@ def crawl(page, arg):
                 txt += '{}\n{}\n'.format(title, link)
         
     return txt
+
 
 """
 def send_image_url(id, img_url):
