@@ -1,4 +1,4 @@
-# TOC Project 2020
+# TOC Project 2020 好想吃吃
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/dc7fa47fcd809b99d087/maintainability)](https://codeclimate.com/github/NCKU-CCS/TOC-Project-2020/maintainability)
 
@@ -19,67 +19,21 @@ More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ]
 * Facebook Page and App
 * HTTPS Server
 
-#### Install Dependency
-```sh
-pip3 install pipenv
-
-pipenv --three
-
-pipenv install
-
-pipenv shell
-```
-
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
-
-
-#### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
-`LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-#### a. Ngrok installation
-* [ macOS, Windows, Linux](https://ngrok.com/download)
-
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-ngrok http 8000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-#### b. Servo
-
-Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
-
 
 ## Finite State Machine
 ![fsm](./img/show-fsm.png)
 
 ## Usage
+![example](./img/S__9396229.jpg)
+![example](./img/S__9396228.jpg)
+![example](./img/S__9396226.jpg)
+![example](./img/S__9404420.jpg)
 The initial state is set to `user`.
 
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
 
-* state:user
-
+* initail state: user
+	## 點選選單吃吃吃 會自動輸入吃吃
 	* Input: "吃吃"
 	  * state: eat
 	  * title: "吃吃 choose"
@@ -92,25 +46,25 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 		  * state: north
 		  * Reply: 兩個圖文選單  
 		  	* 選單1 
-				   title: "在台北吃吃 選個"\
-				   	兩個按鈕: 
-					1. PTT美食
-					2. 別的地方好了
+				title: "在台北吃吃 選個"\
+				兩個按鈕: 
+				1. PTT美食
+				2. 別的地方好了
 			* 選單2
-				   title: "在桃園吃吃 選個"\
-				   	兩個按鈕: 
-					1. PTT美食
-					2. 別的地方好了
+				title: "在桃園吃吃 選個"\
+				兩個按鈕: 
+				1. PTT美食
+				2. 別的地方好了
 		
 
 		* Input: 選擇按鈕 "中部"
 		  * state: middle
 		  * Reply: 兩個圖文選單  
 		  	* 選單1 
-				   title: "在台中吃吃 選個"\
-				   	兩個按鈕: 
-					1. PTT美食
-					2. 別的地方好了
+				title: "在台中吃吃 選個"\
+				兩個按鈕: 
+				1. PTT美食
+				2. 別的地方好了
 			* 選單2
 				title: "在彰化吃吃 選個"\
 				兩個按鈕: 
@@ -131,13 +85,20 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 				1. PTT美食
 				2. 別的地方好了
 
-		* Input: 選擇按鈕 "PTT美食"
-			* state: tainan, kaohsiung, taichung, changhua, taipei, taoyuan
-			* Reply: 台南, 高雄, 台中, 彰化, 台北, 桃園 的批踢踢美食資訊
+				* Input: 選擇按鈕 "PTT美食"
+					* state: tainan, kaohsiung, taichung, changhua, taipei, taoyuan
+					* Reply: 台南, 高雄, 台中, 彰化, 台北, 桃園 的批踢踢美食資訊
+				
+				* Input: 選擇按鈕 "別的地方好了"
+					* state: eat
+					* Reply: 回到eat選單
 		
-		* Input: 選擇按鈕 "別的地方好了"
+		* Input: "image"
 			* state: eat
-			* Reply: 回到eat選單
+			* Reply: show fsm圖
+	
+	# 除了line也有messager 簡易版本!!
+	![example](./img/S__9404418.jpg)
 			
 
 			
