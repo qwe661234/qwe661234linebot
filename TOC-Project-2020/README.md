@@ -27,10 +27,12 @@ More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ]
 ![QR CODE](./img/299oriwz.png)
 
 ## Usage
-![example](./img/S__9396229.jpg)
-![example](./img/S__9396228.jpg)
-![example](./img/S__9396226.jpg)
-![example](./img/S__9404420.jpg)
+![example](./img/S__9420821.jpg)
+![example](./img/S__9420823.jpg)
+![example](./img/S__9420824.jpg)
+![example](./img/S__9420825.jpg)
+
+
 The initial state is set to `user`.
 
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
