@@ -77,7 +77,8 @@ class TocMachine(GraphMachine):
         msg = crawl(1, "台南")
         reply_token = event.reply_token
         send_text_message(reply_token, msg)
-
+        self.go_back()
+        
     def on_exit_tainan(self):
         print("Leaving tainan")
     
