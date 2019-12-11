@@ -29,7 +29,7 @@ class TocMachine(GraphMachine):
     def is_going_to_state2(self, event):
         if event.get("message") and event['message'].get("text"):
             text = event['message']['text']
-            return text.lower() == 'go to state2'
+            return text.lower() == '吃吃'
         return False
     
     def on_enter_state2(self, event):
